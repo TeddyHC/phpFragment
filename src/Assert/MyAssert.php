@@ -3,5 +3,6 @@
 class DBC
 {
     function test()
-    {}
+    {
+    }
 }
