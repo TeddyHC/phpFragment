@@ -4,8 +4,8 @@ class MyCalender
     const CAL_TABLE_CELLS_BIG = 42;
     const CAL_TABLE_CELLS_SMALL = 35;
     private static $bigMonths = array(1, 3, 5, 7, 8, 10, 12);
-	private static $weeks = array("1"=>"ÐÇÆÚÒ»", "2"=>"ÐÇÆÚ¶þ", "3"=>"ÐÇÆÚÈý", "4"=>"ÐÇÆÚËÄ", "5"=>"ÐÇÆÚÎå", "6"=>"ÐÇÆÚÁù", "7"=>"ÐÇÆÚÈÕ");
-	private $date;	//ÈÕÆÚ×Ö·û´®
+	private static $weeks = array("1"=>"ï¿½ï¿½ï¿½ï¿½Ò»", "2"=>"ï¿½ï¿½ï¿½Ú¶ï¿½", "3"=>"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "4"=>"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "5"=>"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "6"=>"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "7"=>"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+	private $date;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ 
 
 	protected function __construct($date)
 	{
@@ -21,6 +21,7 @@ class MyCalender
             $dayNumber = 31;
         return $dayNumber;
 	}
+    
 
     public static function isRunYear($year)
     {
@@ -35,7 +36,7 @@ class MyCalender
         $calTableCellNum = ($firstDateIndex > 2) ? self::CAL_TABLE_CELLS_BIG : self::CAL_TABLE_CELLS_SMALL;
         $tableCells = array();
         $dayNumber = self::getNumberOfDays($year, $month);
-        //var_dump($firstDateIndex, $calTableCellNum, $dayNumber);
+        
         $dayIndex = 0;
         for($i=0; $i<$calTableCellNum; $i++)
         {

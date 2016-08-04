@@ -52,6 +52,7 @@ class XString
         return $time;
     }
 
+    //TODO:convert get out
     /** 尝试把其他编码装换成utf8 */
     public static function convertToUnicode($str)
     {
