@@ -1,6 +1,6 @@
 <?php
 
-class MyDateTimeException extends SystemException
+class MyDateTimeException extends Exception
 {
     const FORMAT_DATETIME_ERROR = '转换时间类型失败';
 }
@@ -303,33 +303,14 @@ class MyDateTime
         return array('year' => $yearDiff, 'month' => $monthDiff, 'day' => $dayDiff);
     }
 
-    //TODO:is pool
     public static function getDaysOfMonth($year, $month)
     {
-        $days = 0;
-        switch ($month) {
-        case 1:
-        case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-            $days = 31;
-            break;
-        case 2:
-            if (($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0) {
-                $days = 29;
-            } else {
-                $days = 28;
-            }
-            break;
-        default:
-            $days = 30;
-            break;
+        $dayNum = self::$monthDays[$month - 1];
+        if ($month == 2) {
+            $dayNum += self::isRunYear($year) ? 1 : 0;
         }
 
-        return $days;
+        return $dayNum;
     }
 
     public function getYear()
@@ -561,25 +542,6 @@ class MyDateTime
         return new self(date($format, time() + 3600 * 24 * 2));
     }
 
-    public static function printTime4Touch($time, $format = 'Y-m-d H:i:s')
-    {
-        $time = is_numeric($time) ? $time : strtotime($time);
-        $alltime = floor((time() - $time) / 60);
-        if ($alltime < 60) {
-            if ($alltime <= 0) {
-                $alltime = 1;
-            }
-
-            return $alltime.'分钟前';
-        } elseif ($alltime < 60 * 24) {
-            return floor($alltime / 60).'小时前';
-        } elseif ($alltime < 60 * 24 * 7) {
-            return floor($alltime / (60 * 24)).'天前';
-        } else {
-            return self::valueOfTime($time)->toStringByFormat($format);
-        }
-    }
-
     public static function getDateDiffDesc(MyDateTime $fromTime, MyDateTime $endTime)
     {
         $diff = self::valueOf($fromTime)->getDateDiff($endTime);
@@ -781,7 +743,7 @@ class MyDateTime
         }
 
         return $age;
-    }/*}}}*/
+    }
 
     public static function second2HourAndMinute($second)
     {
